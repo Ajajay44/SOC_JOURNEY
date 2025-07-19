@@ -1,0 +1,127 @@
+
+---
+
+# TryHackMe - Pyramid of Pain Walkthrough
+
+**Room**: Pyramid of Pain
+**Pathway**: SOC Level 1
+
+
+---
+
+## Introduction
+
+This room explores the "Pyramid of Pain," a concept developed by David J. Bianco to help defenders understand how different types of indicators affect attackers. The higher you go on the pyramid—from hashes and IPs to TTPs—the more disruptive your detections are to adversaries.
+
+This walkthrough covers all the tasks in the room, including what each indicator means and how we can use them more effectively in threat detection and response.
+
+---
+
+## Task 1 – Introduction
+
+This task gives a brief on the Pyramid of Pain and its importance in cybersecurity. Nothing to answer here, just read and move on.
+
+---
+
+## Task 2 – Hash Values
+
+Hashes are unique digital signatures of files. They’re easy to detect using antivirus tools or SIEMs, but attackers can easily modify the file to generate a new hash, so they offer low value in the long term.
+
+Answer:
+The SHA256 hash provided leads to a malicious file named `Sales_Receipt 5606.xls`.
+
+---
+
+## Task 3 – IP Addresses
+
+IP addresses are also fairly easy to detect and block using firewalls or threat intel feeds. But again, attackers can swap IPs quickly using VPNs or proxies.
+
+Answers:
+
+* The first IP address contacted by process ID 1632 is `50.87.136.52`.
+* The first domain name contacted is `craftingalegacy.com`.
+
+---
+
+## Task 4 – Domain Names
+
+Domains are slightly harder for attackers to rotate compared to IPs. Registering new domains takes time, money, and some planning (especially if they’re trying to spoof legitimate ones).
+
+Key concepts here include:
+
+* Punycode domains: used to trick users with Unicode lookalikes.
+* Typosquatting: registering domains that look similar to legitimate ones.
+
+Other answers:
+
+* The TinyURL given in the room redirects to the TryHackMe homepage.
+
+---
+
+## Task 5 – Host Artifacts
+
+Host artifacts refer to suspicious files, registry entries, or other traces left on the system after compromise. These are more difficult for attackers to change and can provide strong detection opportunities.
+
+Answers:
+
+* A process called `regidle.exe` made an outbound connection to `96.126.101.6:8080`.
+* The malicious file dropped was named `G_jugk.exe`.
+* This file was flagged by 9 antivirus vendors on VirusTotal.
+
+---
+
+## Task 6 – Network Artifacts
+
+These include HTTP headers, user-agent strings, and other elements seen in network traffic that can indicate malicious behavior. They're harder for attackers to modify consistently, especially under real-time monitoring.
+
+Answers:
+
+* The user-agent observed was consistent with Internet Explorer.
+* There were six POST requests observed in the capture.
+
+---
+
+## Task 7 – Tools
+
+Tools refer to software frameworks or utilities attackers use to carry out operations, like Mimikatz or Cobalt Strike. Blocking tools or detecting their signatures can frustrate attackers, but some tools can be customized, so it's not foolproof.
+
+Answers:
+
+* The method used to detect similarity between tools is fuzzy hashing.
+* Full form of this method: context-triggered piecewise hashes.
+
+---
+
+## Task 8 – TTPs (Tactics, Techniques, and Procedures)
+
+TTPs are the highest level of the pyramid. These refer to the actual behavior patterns of attackers, like lateral movement or command-and-control strategies. This is the hardest thing for attackers to change and the most valuable thing for defenders to detect.
+
+Answers:
+
+* There are 9 exfiltration techniques linked to the threat actor in the example.
+* The C2 tool used by the Chimera group is Cobalt Strike.
+
+---
+
+## Task 9 – Interactive Pyramid Activity
+
+In this task, you're given a drag-and-drop activity where you have to map definitions to the correct pyramid layer. It’s a good way to reinforce what you've learned.
+
+Correct mapping:
+
+* TTPs – Adversary behaviors and objectives
+* Tools – Utilities used to perform attacks
+* Host/Network Artifacts – File paths, HTTP headers, registry keys
+* Domain Names – Infrastructure used for phishing, C2, etc.
+* IP Addresses – Often tied to temporary infrastructure
+* Hash Values – Fingerprints of malicious files
+
+Final flag for this task: `THM{PYRAMIDS_COMPLETE}`
+
+---
+
+## Task 10 – Conclusion
+
+The room wraps up by emphasizing the importance of building detection capabilities around the top of the pyramid. While it's easier to detect and block things like hashes or IPs, focusing on tools and TTPs gives you much stronger long-term defensive value.
+
+---
