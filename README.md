@@ -1,2 +1,2 @@
 # SOC_JOURNEY
-Documenting my cybersec jounrey
+Documenting my cybersec journey
